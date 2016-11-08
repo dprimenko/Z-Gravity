@@ -46,10 +46,14 @@ public class Move : MonoBehaviour {
             _playerCollisioned = true;
         }
 
+		if (collision.gameObject.tag == "Spikes") {
+			loseImg.SetActive(true);
+			SetActiveButtons();
+		}
+
         if (collision.gameObject.tag == "Finish")
         {
             winImg.SetActive(true);
-            Destroy(gameObject);
             SetActiveButtons();
         }
     }
@@ -61,10 +65,15 @@ public class Move : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Lose")
         {
-            loseImg.SetActive(true);
-            Destroy(gameObject);
+            loseImg.SetActive(true);  
+			SetActiveButtons();
         }
-        SetActiveButtons();
+
+		if (collision.gameObject.tag == "Vodka")
+		{
+			Destroy (collision.gameObject);
+		}
+        
     }
 
     void CheckTouch() {
@@ -77,6 +86,7 @@ public class Move : MonoBehaviour {
     }
 
     void SetActiveButtons() {
+		Destroy(gameObject);
         question.SetActive(true);
         btnYes.SetActive(true);
         btnNo.SetActive(true);
